@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <title>ALA-1</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<h2>ALA-1</h2>
+
+<!-- SIGN -->
+<form method="POST">
+  <input type="hidden" name="action" value="sign">
+
+  <textarea name="message" placeholder="Enter message"></textarea><br>
+  <button type="submit">Sign</button>
+</form>
+
+<br>
+
+<!-- VERIFY -->
+<form method="POST">
+  <input type="hidden" name="action" value="verify">
+
+  <input type="text" name="verify_message" placeholder="Message"><br>
+  <input type="text" name="verify_signature" placeholder="Signature"><br>
+  <input type="text" name="verify_public_e" placeholder="Public e"><br>
+  <input type="text" name="verify_public_n" placeholder="Public n"><br>
+
+  <button type="submit">Verify</button>
+</form>
+
+<br>
+
+{% if sign_result %}
+<p>Signature: {{ sign_result.signature }}</p>
+{% endif %}
+
+{% if verify_result %}
+<p>Status: {{ verify_result.verified }}</p>
+{% endif %}
+
+{% if verify_error %}
+<p style="color:red">{{ verify_error }}</p>
+{% endif %}
+
+<br>
+<a href="/">Back</a>
+
+</body>
+</html>

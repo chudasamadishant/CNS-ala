@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <title>ALA-3 MAC</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body class="ala-page">
+<div class="main-card">
+
+  <h2>🔑 ALA-3: MAC-Based Message Authentication</h2>
+
+  <div class="grid-2">
+
+    <!-- SENDER -->
+    <form method="POST" class="card">
+      <input type="hidden" name="action" value="send">
+
+      <h3>Sender</h3>
+
+      <textarea name="sender_message">{{ sender_form.message }}</textarea>
+      <input type="text" name="sender_key" placeholder="Key" value="{{ sender_form.key }}">
+
+      <button>Generate MAC</button>
+    </form>
+
+    <!-- RECEIVER -->
+    <form method="POST" class="card">
+      <input type="hidden" name="action" value="verify">
+
+      <h3>Receiver</h3>
+
+      <textarea name="receiver_message">{{ receiver_form.message }}</textarea>
+      <input type="text" name="receiver_key" value="{{ receiver_form.key }}">
+      <input type="text" name="receiver_mac" value="{{ receiver_form.mac }}">
+
+      <button>Verify</button>
+    </form>
+
+  </div>
+
+  {% if sender_result %}
+  <div class="result-box">
+    <h3>Generated MAC</h3>
+    <pre>{{ sender_result.mac }}</pre>
+  </div>
+  {% endif %}
+
+  {% if receiver_result %}
+  <div class="result-box">
+    <h3>Verification</h3>
+    <p><b>Status:</b> {{ 'Valid' if receiver_result.verified else 'Invalid' }}</p>
+  </div>
+  {% endif %}
+
+  <a href="/">⬅ Back</a>
+
+</div>
+</body>
+</html>
